@@ -223,9 +223,11 @@ function toggleAuthUI(isVisible) {
 // === Сохранение данных ===
 function saveData() {
   if (currentUser) {
-    database.ref(`users/${currentUser.uid}`).set({ games });
+    // Сохраняем только в ветку anime
+    database.ref(`users/${currentUser.uid}/anime`).set(games);
   } else {
-    localStorage.setItem("games", JSON.stringify(games));
+    // Локальное хранилище — тоже отдельно
+    localStorage.setItem("anime", JSON.stringify(games));
   }
 }
 
