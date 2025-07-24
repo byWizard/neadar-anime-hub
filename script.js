@@ -72,18 +72,42 @@ async function searchGame(query) {
 
 // === Обработчик поиска по аниме ===
 let debounceTimer;
-gameSearchInput.addEventListener("input", e => {
+gameSearchInput.addEventListener("input", async (e) => {
   const query = e.target.value.trim();
+  
+  // Очищаем результаты, если запрос короткий
   if (query.length < 2) {
     searchResults.innerHTML = "";
     return;
   }
-  clearTimeout(debounceTimer);
+
+  // Показываем индикатор
   searchResults.innerHTML = "<li>Ищем аниме...</li>";
+
+  clearTimeout(debounceTimer);
+
   debounceTimer = setTimeout(async () => {
-    const results = await searchGame(query);
-    renderSearchResults(results);
-  }, 500);
+    try {
+      // Проверяем кэш СНАЧАЛА
+      const cached = getFromCache(query);
+      let results = cached;
+
+      // Если в кэше нет — делаем запрос
+      if (!cached) {
+        const response = await fetch(
+          `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&sfw`
+        );
+        const data = await response.json();
+        results = data.data || [];
+        setToCache(query, results); // Сохраняем в кэш
+      }
+
+      renderSearchResults(results);
+    } catch (err) {
+      console.error("Ошибка поиска аниме:", err);
+      searchResults.innerHTML = "<li>Ошибка подключения</li>";
+    }
+  }, 300); // Можно уменьшить с 500 до 300 для быстрее реакции
 });
 
 function renderSearchResults(results) {
