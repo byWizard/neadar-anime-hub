@@ -200,12 +200,12 @@ auth.onAuthStateChanged((user) => {
     authBtn.textContent = "Выйти";
     userStatus.textContent = `Вы вошли как ${user.displayName}`;
     // Загружаем аниме из отдельной ветки
-database.ref(`users/${currentUser.uid}/anime`).once("value").then(snapshot => {
-  const data = snapshot.val();
-  games = data || [];
-  applyFilters();
-  toggleAuthUI(false);
-}).catch(console.error);
+    database.ref(`users/${currentUser.uid}/anime`).once("value").then(snapshot => {
+      const data = snapshot.val();
+      games = data || [];
+      applyFilters();
+      toggleAuthUI(false);
+    }).catch(console.error);
   } else {
     currentUser = null;
     authBtn.textContent = "Войти через Google";
