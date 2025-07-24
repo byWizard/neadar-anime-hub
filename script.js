@@ -511,6 +511,28 @@ function updateParticleColor(theme) {
   }
 }
 
+// === Элементы модального окна ===
+const updatesBtn = document.getElementById("updatesBtn");
+const updatesModal = document.getElementById("updatesModal");
+const updatesOverlay = document.getElementById("updatesOverlay");
+const closeUpdates = document.getElementById("closeUpdates");
+
+// === Открытие и закрытие ===
+updatesBtn.addEventListener("click", () => {
+  updatesModal.style.display = "block";
+  updatesOverlay.style.display = "block";
+});
+
+closeUpdates.addEventListener("click", () => {
+  updatesModal.style.display = "none";
+  updatesOverlay.style.display = "none";
+});
+
+updatesOverlay.addEventListener("click", () => {
+  updatesModal.style.display = "none";
+  updatesOverlay.style.display = "none";
+});
+
 // === Инициализация ===
 createParticles();
 animateParticles();
