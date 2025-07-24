@@ -199,12 +199,13 @@ auth.onAuthStateChanged((user) => {
     currentUser = user;
     authBtn.textContent = "Выйти";
     userStatus.textContent = `Вы вошли как ${user.displayName}`;
-    database.ref(`users/${currentUser.uid}`).once("value").then(snapshot => {
-      const data = snapshot.val();
-      games = data?.games || [];
-      applyFilters();
-      toggleAuthUI(false);
-    }).catch(console.error);
+    // Загружаем аниме из отдельной ветки
+database.ref(`users/${currentUser.uid}/anime`).once("value").then(snapshot => {
+  const data = snapshot.val();
+  games = data || []; // данные из ветки anime
+  applyFilters();
+  toggleAuthUI(false);
+}).catch(console.error);
   } else {
     currentUser = null;
     authBtn.textContent = "Войти через Google";
