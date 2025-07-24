@@ -521,7 +521,7 @@ footer strong.version-tag {
 #updatesBtn {
   position: absolute;
   top: 1rem;
-  right: 8rem;
+  right: 10rem;
   background-color: #27ae60;
   color: white;
   border: none;
