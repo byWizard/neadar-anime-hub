@@ -106,7 +106,7 @@ function renderSearchResults(results) {
     li.addEventListener("click", () => {
       gameTitle.value = anime.title;
       gameImage.value = anime.images?.jpg?.large_image_url || "";
-      gameDescription.value = anime.synopsis || "";
+      // gameDescription.value = anime.synopsis || "";  ← Блок описания
       searchResults.innerHTML = "";
     });
     searchResults.appendChild(li);
