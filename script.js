@@ -107,7 +107,7 @@ gameSearchInput.addEventListener("input", async (e) => {
       console.error("Ошибка поиска аниме:", err);
       searchResults.innerHTML = "<li>Ошибка подключения</li>";
     }
-  }, 300); // Можно уменьшить с 500 до 300 для быстрее реакции
+  }, 400); // Можно уменьшить с 500 до 300 для быстрее реакции
 });
 
 function renderSearchResults(results) {
