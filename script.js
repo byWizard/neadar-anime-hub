@@ -119,14 +119,14 @@ function renderSearchResults(results) {
   results.slice(0, 5).forEach(anime => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <div style="display: flex; align-items: center;">
-        <img src="${anime.images?.jpg?.large_image_url || 'https://via.placeholder.com/40'}" alt="${anime.title}" width="40" style="margin-right: 10px; border-radius: 4px;">
-        <div>
-          <strong>${anime.title}</strong><br>
-          <small>${(anime.synopsis || 'Описание отсутствует').slice(0, 80)}...</small>
-        </div>
-      </div>
-    `;
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="${anime.images?.jpg?.large_image_url || 'https://via.placeholder.com/40'}" 
+         alt="${anime.title}" width="40" style="border-radius: 4px; flex-shrink: 0;">
+    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      <strong>${anime.title}</strong>
+    </div>
+  </div>
+`;
     li.addEventListener("click", () => {
       gameTitle.value = anime.title;
       gameImage.value = anime.images?.jpg?.large_image_url || "";
