@@ -74,40 +74,59 @@ async function searchGame(query) {
 let debounceTimer;
 gameSearchInput.addEventListener("input", async (e) => {
   const query = e.target.value.trim();
-  
-  // Очищаем результаты, если запрос короткий
+
+  // Очищаем, если запрос короткий
   if (query.length < 2) {
     searchResults.innerHTML = "";
     return;
   }
 
-  // Показываем индикатор
+  // Показываем индикатор загрузки
   searchResults.innerHTML = "<li>Ищем аниме...</li>";
 
   clearTimeout(debounceTimer);
 
   debounceTimer = setTimeout(async () => {
     try {
-      // Проверяем кэш СНАЧАЛА
+      // Проверяем кэш
       const cached = getFromCache(query);
       let results = cached;
 
-      // Если в кэше нет — делаем запрос
+      // Если нет в кэше — делаем запрос
       if (!cached) {
+        // Добавим задержку, чтобы не спамить API
+        await new Promise(resolve => setTimeout(resolve, 300));
+
         const response = await fetch(
-          `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&sfw`
+          `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&sfw`,
+          { method: "GET", headers: { "Accept": "application/json" } }
         );
+
+        // Если ошибка 429 (слишком много запросов)
+        if (response.status === 429) {
+          searchResults.innerHTML = "<li>⏳ Слишком много запросов. Подождите секунду.</li>";
+          return;
+        }
+
+        if (!response.ok) {
+          searchResults.innerHTML = "<li>⚠️ Сервер не отвечает. Попробуйте позже.</li>";
+          return;
+        }
+
         const data = await response.json();
         results = data.data || [];
         setToCache(query, results); // Сохраняем в кэш
       }
 
+      // Рендерим результаты
       renderSearchResults(results);
+
     } catch (err) {
-      console.error("Ошибка поиска аниме:", err);
-      searchResults.innerHTML = "<li>Ошибка подключения</li>";
+      // Обрабатываем сетевые ошибки (например, нет интернета)
+      console.warn("Ошибка API:", err.message);
+      searchResults.innerHTML = "<li>🌐 Нет подключения к API. Проверьте интернет.</li>";
     }
-  }, 400); // Можно уменьшить с 500 до 300 для быстрее реакции
+  }, 500); // Задержка 500мс — оптимально
 });
 
 function renderSearchResults(results) {
