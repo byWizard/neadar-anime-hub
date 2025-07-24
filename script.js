@@ -202,9 +202,10 @@ auth.onAuthStateChanged((user) => {
     // Загружаем аниме из отдельной ветки
 database.ref(`users/${currentUser.uid}/anime`).once("value").then(snapshot => {
   const data = snapshot.val();
-  games = data || []; // данные из ветки anime
+  games = data || [];
   applyFilters();
   toggleAuthUI(false);
+});
 }).catch(console.error);
   } else {
     currentUser = null;
@@ -224,10 +225,9 @@ function toggleAuthUI(isVisible) {
 // === Сохранение данных ===
 function saveData() {
   if (currentUser) {
-    // Сохраняем только в ветку anime
+    // ✅ Пишем ТОЛЬКО в ветку anime
     database.ref(`users/${currentUser.uid}/anime`).set(games);
   } else {
-    // Локальное хранилище — тоже отдельно
     localStorage.setItem("anime", JSON.stringify(games));
   }
 }
