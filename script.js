@@ -14,7 +14,7 @@ const userStatus = document.getElementById("userStatus");
 const themeToggle = document.getElementById("themeToggle");
 const authOnlyOverlay = document.getElementById("authOnlyOverlay");
 const authRequiredLoginBtn = document.getElementById("authRequiredLoginBtn");
-let games = [];
+let animeList = []; // вместо let games = [];
 let currentUser = null;
 let isLoadingAuth = true;
 
