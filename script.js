@@ -205,7 +205,6 @@ database.ref(`users/${currentUser.uid}/anime`).once("value").then(snapshot => {
   games = data || [];
   applyFilters();
   toggleAuthUI(false);
-});
 }).catch(console.error);
   } else {
     currentUser = null;
