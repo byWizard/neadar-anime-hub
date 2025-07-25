@@ -116,9 +116,10 @@ header {
 header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, #4a90e2, #7ed321);
+  background: linear-gradient(90deg, #ff58a5, #b83dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 88, 165, 0.2);
 }
 
 header p {
