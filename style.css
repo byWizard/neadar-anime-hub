@@ -1,13 +1,13 @@
-/* === Переменные тем === */
+/* === Переменные тем — Аниме-версия (розовая) === */
 :root {
-  --bg-color: #111;
-  --text-color: #eee;
-  --card-bg: #1c1c1c;
-  --accent-color: #4a90e2;
-  --success-color: #2e8b57;
-  --secondary-text: #aaa;
-  --border-color: #333;
-  --shadow-color: rgba(0, 0, 0, 0.3);
+  --bg-color: #1c1121;           /* Тёмно-фиолетовый фон */
+  --text-color: #f8e9f8;         /* Светло-розовый текст */
+  --card-bg: #2a1838;            /* Тёмно-сиреневый карточки */
+  --accent-color: #ff58a5;       /* Розовый акцент (кнопки, звёзды) */
+  --success-color: #b83dff;      /* Лаванда для "Просмотрено" */
+  --secondary-text: #c9a6d9;     /* Приглушённый светлый */
+  --border-color: #4a265d;
+  --shadow-color: rgba(255, 88, 165, 0.2);
 }
 
 body.dark-theme {
